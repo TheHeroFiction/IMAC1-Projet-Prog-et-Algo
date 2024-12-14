@@ -42,88 +42,88 @@ void turn_connect_4(Player const & player,std::array<char,42> & tab, int & numbe
     tab[number] = player.symbol;
 }
 
-bool align_possibility(std::array<char,42> const & tab, char symbol, int index){
-    if (index < 7){
-        switch (index)
-        {
-        case 0:
-            if (tab[1] == symbol || tab[7] == symbol || tab[8] == symbol ){
-                return true;
-            }
-            break;
-        case 6:
-            if(tab[5] == symbol || tab[12] == symbol || tab[13] == symbol){
-                return true;
-            }
-            break;
-        default:
-            if (tab[index-1] == symbol || tab[index+1] == symbol || tab[index+6] == symbol || tab[index+7] == symbol || tab[index+8] == symbol){
-                return true;
-            }
-            break;
-        }
-    } else if (index > 34){
-        switch (index)
-        {
-        case 35:
-            if (tab[28] == symbol || tab[29] == symbol || tab[36] == symbol){
-                return true;
-            }
-            break;
-        case 41:
-            if (tab[33] == symbol || tab[34] == symbol || tab[40] == symbol){
-                return true;
-            }
-            break;
-        default:
-            if (tab[index-8] == symbol || tab[index-7] == symbol || tab[index-6] == symbol || tab[index-1] == symbol || tab[index+1] == symbol){
-                return true;
-            }
-            break;
-        }
-    } else if (index % 7 == 0) {
-        if (tab[index-7] == symbol || tab[index-6] == symbol || tab[index+1] == symbol || tab[index+7] == symbol || tab[index+8] == symbol){
+bool horizontal_win(std::array<char,42> const & tab, char symbol){
+    for (int i {0}; i < 6 ; i++){
+        if(tab[0 + i*7] == symbol && tab[0 + i*7] == tab[1 + i*7] && tab [0 + i*7] == tab[2 + i*7] && tab[0 + i*7] == tab[3 + i*7]){
             return true;
-        }
-    } else if (index % 7 == 6){
-        if (tab[index-8] == symbol || tab[index-7] == symbol || tab[index-1] == symbol || tab[index+6] == symbol || tab[index+7] == symbol){
+        } else if (tab[1 + i*7] == symbol && tab[1 + i*7] == tab[2 + i*7] && tab [1 + i*7] == tab[3 + i*7] && tab[1 + i*7] == tab[4 + i*7]){
             return true;
-        }
-    } else {
-        if (tab[index-8] == symbol || tab[index-7] == symbol || tab[index-6] == symbol || tab[index-1] == symbol || tab[index+1] == symbol || tab[index+6] == symbol || tab[index+7] == symbol || tab[index+8] == symbol){
+        } else if (tab[2 + i*7] == symbol &&tab[2 + i*7] == tab[3 + i*7] && tab [2 + i*7] == tab[4 + i*7] && tab[2 + i*7] == tab[5 + i*7]){
+            return true; 
+        } else if (tab[3 + i*7] == symbol && tab[3 + i*7] == tab[4 + i*7] && tab [3 + i*7] == tab[5 + i*7] && tab[3 + i*7] == tab[6 + i*7]){
             return true;
         }
     }
     return false;
-} 
-
-bool horizontal_win(std::array<char,42> const & tab, char symbol){
-    for (int i {0}; i < 6 ; i++){
-        if(tab[0 + i*7] == tab[1 + i*7] && tab [0 + i*7] == tab[2 + i*7] && tab[0 + i*7] == tab[3 + i*7]){
-            return true;
-        } else if (tab[1 + i*7] == tab[2 + i*7] && tab [1 + i*7] == tab[3 + i*7] && tab[1 + i*7] == tab[4 + i*7]){
-            return true;
-        } else if (tab[2 + i*7] == tab[3 + i*7] && tab [2 + i*7] == tab[4 + i*7] && tab[2 + i*7] == tab[5 + i*7]){
-            return true; 
-        } else if (tab[3 + i*7] == tab[4 + i*7] && tab [3 + i*7] == tab[5 + i*7] && tab[3 + i*7] == tab[6 + i*7]){
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
 
 bool vertical_win(std::array<char,42> const & tab, char symbol){
-    
+    for (int i {0}; i < 7; i++){
+        if (tab[0 + i] == symbol && tab[0 + i] == tab[7 + i] && tab[0 + i] == tab[14 + i] && tab[0 + i] == tab[21 + i]){
+            return true;
+        } else if (tab[7 + i] == symbol && tab[7 + i] == tab[14 + i] && tab[7 + i] == tab[21 + i] && tab[7 + i] == tab[28 + i]){
+            return true;
+        } else if (tab[14 + i] == symbol && tab[14 + i] == tab[21 + i] && tab[14 + i] == tab[28 + i] && tab[14 + i] == tab[35 + i]){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool diagonale_win(std::array<char,42> const & tab, char symbol){
+    if (tab[38] == symbol && tab[38] == tab[32] && tab[38] == tab[26] && tab[38] == tab[20]){
+        return true;
+    } else if (tab[38] == symbol && tab[38] == tab[30] && tab[38] == tab[22] && tab[38] == tab[14]){
+        return true;
+    } else if (tab[37] == symbol && tab[37] == tab[31] && tab[37] == tab[25] && tab[37] == tab[19]){
+        return true;
+    } else if (tab[31] == symbol && tab[31] == tab[25] && tab[31] == tab[19] && tab[31] == tab[13]){
+        return true;
+    } else if (tab[36] == symbol && tab[36] == tab[30] && tab[36] == tab[24] && tab[36] == tab[18]){
+        return true;
+    } else if (tab[30] == symbol && tab[30] == tab[24] && tab[30] == tab[18] && tab[30] == tab[12]){
+        return true;
+    } else if (tab[24] == symbol && tab[24] == tab[18] && tab[24] == tab[12] && tab[24] == tab[6]){
+        return true;
+    } else if (tab[35] == symbol && tab[35] == tab[29] && tab[35] == tab[23] && tab[35] == tab[17]){
+        return true;
+    } else if (tab[29] == symbol && tab[29] == tab[23] && tab[29] == tab[17] && tab[29] == tab[11]){
+        return true;
+    } else if (tab[23] == symbol && tab[23] == tab[17] && tab[23] == tab[11] && tab[23] == tab[5]){
+        return true;
+    } else if (tab[28] == symbol && tab[28] == tab[22] && tab[28] == tab[16] && tab[28] == tab[10]){
+        return true;
+    } else if (tab[22] == symbol && tab[22] == tab[16] && tab[22] == tab[10] && tab[22] == tab[4]){
+        return true;
+    } else if (tab[21] == symbol && tab[21] == tab[15] && tab[21] == tab[9] && tab[21] == tab[3]){
+        return true;
+    } else if (tab[39] == symbol && tab[39] == tab[31] && tab[39] == tab[23] && tab[39] == tab[15]){
+        return true;
+    } else if (tab[31] == symbol && tab[31] == tab[23] && tab[31] == tab[15] && tab[31] == tab[7]){
+        return true;
+    } else if (tab[40] == symbol && tab[40] == tab[32] && tab[40] == tab[24] && tab[40] == tab[16]){
+        return true;
+    } else if (tab[32] == symbol && tab[32] == tab[24] && tab[32] == tab[16] && tab[32] == tab[8]){
+        return true;
+    } else if (tab[24] == symbol && tab[24] == tab[16] && tab[24] == tab[8] && tab[24] == tab[0]){
+        return true;
+    } else if (tab[41] == symbol && tab[41] == tab[33] && tab[41] == tab[25] && tab[41] == tab[17]){
+        return true;
+    } else if (tab[33] == symbol && tab[33] == tab[25] && tab[33] == tab[17] && tab[33] == tab[9]){
+        return true;
+    } else if (tab[25] == symbol && tab[25] == tab[17] && tab[25] == tab[9] && tab[25] == tab[1]){
+        return true;
+    } else if (tab[34] == symbol && tab[34] == tab[26] && tab[34] == tab[18] && tab[34] == tab[10]){
+        return true;
+    } else if (tab[26] == symbol && tab[26] == tab[18] && tab[26] == tab[10] && tab[26] == tab[2]){
+        return true;
+    } else if (tab[27] == symbol && tab[27] == tab[19] && tab[27] == tab[11] && tab[27] == tab[3]){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool victory_detection(std::array<char,42> const & tab, char symbol){
-    std::vector<int> indices{};
-    for (int i {0} ; i < 42 ;i++){
-        if (tab[i] == symbol){
-            if (align_possibility(tab,symbol,i)){
-                indices.push_back(i);
-            }
-        }
-    }
+    return (horizontal_win(tab,symbol) || vertical_win(tab,symbol) || diagonale_win(tab,symbol));
 }
