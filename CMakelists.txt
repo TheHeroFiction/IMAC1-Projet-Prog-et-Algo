@@ -5,6 +5,6 @@ project(TicTacToe)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-add_executable(game "src/main.cpp" "src/Player.cpp" "src/beyond.cpp")
+add_executable(game "src/main.cpp" "src/Player.cpp" "src/connect4.cpp")
 
 target_include_directories(game PUBLIC "src/")

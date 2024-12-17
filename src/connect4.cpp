@@ -1,4 +1,4 @@
-#include "beyond.hpp"
+#include "connect4.hpp"
 
 void draw_connect_4(std::array<char,42> const & tab){
     for (int i {0}; i < 6; i++){
@@ -18,7 +18,7 @@ void draw_connect_4_help(){
 }
 
 void turn_connect_4(Player const & player,std::array<char,42> & tab, int & number){
-    std::cout << "Choisis une colonne entre 1 et 7: ";
+    std::cout << player.name << " choisis une colonne entre 1 et 7: ";
     std::cin >> number;
     while(number > 7 || number < 1){
         std::cout << "Entre un chiffre valide entre 1 et 7: ";
@@ -126,4 +126,50 @@ bool diagonale_win(std::array<char,42> const & tab, char symbol){
 
 bool victory_detection(std::array<char,42> const & tab, char symbol){
     return (horizontal_win(tab,symbol) || vertical_win(tab,symbol) || diagonale_win(tab,symbol));
+}
+
+void victory_declaration(std::array<char,42> const & tab, Player const & player_1, Player const & player_2){
+    if(victory_detection(tab,player_1.symbol)){
+            std::cout << player_1.name << " a gagné!"<< std::endl;
+        } else if(victory_detection(tab,player_2.symbol)){
+            std::cout << player_2.name << " a gagné!"<< std::endl;
+        } else {
+            std::cout << "Egalité !" << std::endl; 
+        }
+}
+
+void two_players_connect_4_mode(Player const & player_1, Player const & player_2){
+    std::array<char,42> tab 
+    {'.','.','.','.','.','.','.',
+    '.','.','.','.','.','.','.',
+    '.','.','.','.','.','.','.',
+    '.','.','.','.','.','.','.',
+    '.','.','.','.','.','.','.',
+    '.','.','.','.','.','.','.'};
+    int number {0};
+    bool is_finished {false};
+    for (int i {0}; i < 42; i++){
+        draw_connect_4(tab);
+        std::cout << std::endl;
+        draw_connect_4_help();
+        if ( i%2 ==0){
+            turn_connect_4(player_1,tab,number);
+            if (victory_detection(tab,player_1.symbol)){
+                is_finished = true;
+                std::cout << player_1.name << " a gagne!"<< std::endl;
+                break;
+            }
+        } else {
+            turn_connect_4(player_2,tab,number);
+            if (victory_detection(tab,player_2.symbol)){
+                is_finished = true;
+                std::cout << player_2.name << " a gagne!"<< std::endl;
+                break;
+            }
+        }
+        std::cout << std::endl;
+    }
+    if (!is_finished){
+        victory_declaration(tab,player_1,player_2);
+    }
 }

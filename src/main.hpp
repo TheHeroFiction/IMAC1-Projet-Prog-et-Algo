@@ -3,7 +3,7 @@
 #include <vector>
 #include <random>
 #include "Player.hpp"
-#include "beyond.hpp"
+#include "connect4.hpp"
 
 void draw_game_board(std::array<char,9> const & tab);
 
@@ -24,3 +24,5 @@ void IA_play(std::array<char,9> & tab);
 void one_player_mode(Player const & player_1);
 
 void boot_menu();
+
+void boot_menu_with_connect4();

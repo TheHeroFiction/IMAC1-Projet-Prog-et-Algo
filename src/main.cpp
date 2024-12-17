@@ -139,9 +139,37 @@ void boot_menu(){
     }
 }
 
+void boot_menu_with_connect4(){
+    int number {0};
+    std::cout << "Bienvenue !" << std::endl;
+    std::cout << "Veuillez choisir un mode de jeu :" << std::endl;
+    std::cout << "1. Tictactoe: Deux joueurs" << std::endl;
+    std::cout << "2. Tictactoe: Un joueur contre l'IA" << std::endl;
+    std::cout << "3. Puissance4: Deux joueurs" << std::endl;
+    std::cin >> number;
+    if (number == 1){
+        Player player_1 {create_player()};
+        Player player_2 {create_player()};
+        detect_similarities(player_1,player_2);
+        two_players_mode(player_1,player_2);
+    } else if (number == 2){
+        Player player {create_player()};
+        detect_similarities(IA,player);
+        one_player_mode(player);
+    } else if (number == 3){
+        Player player_1 {create_player()};
+        Player player_2 {create_player()};
+        detect_similarities(player_1,player_2);
+        two_players_connect_4_mode(player_1,player_2);
+    } else {
+        std::cout << "Aucun mode associé à ce nombre! Fin du programme!" << std::endl;
+    }
+}
+
+
 int main(){
     std::setlocale(LC_ALL, ".65001");
-    //boot_menu();
-    draw_connect_4_help();
+    //boot_menu(); // Projet de base: morpion avec un mode 1 joueur et un mode 2 joueurs 
+    boot_menu_with_connect4();
     return 0;
 }
