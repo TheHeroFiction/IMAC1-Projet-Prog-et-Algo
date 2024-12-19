@@ -169,7 +169,10 @@ void boot_menu_with_connect4(){
 
 int main(){
     std::setlocale(LC_ALL, ".65001");
-    //boot_menu(); // Projet de base: morpion avec un mode 1 joueur et un mode 2 joueurs 
-    boot_menu_with_connect4();
+    // Projet de base: morpion avec un mode 1 joueur et un mode 2 joueurs
+    //boot_menu();  
+
+    //Projet de base + puissance 4
+    //boot_menu_with_connect4();
     return 0;
 }

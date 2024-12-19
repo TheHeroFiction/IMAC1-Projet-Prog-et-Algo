@@ -30,11 +30,11 @@ void turn_connect_4(Player const & player,std::array<char,42> & tab, int & numbe
     }
     
     for (int i {1}; i < 6; i++){
-        if (tab[number + 34] == '.'){
+        if (tab[number + 34] == '.'){ // regarde si la colonne est vide
             number = number + 34;
             break;  
         }
-        if(tab[number-1 + i*7] != '.'){
+        if(tab[number-1 + i*7] != '.'){ //regarde jusqu'où la colonne est remplie
             number = number-1 + (i-1)*7;
             break;
         }
@@ -42,7 +42,7 @@ void turn_connect_4(Player const & player,std::array<char,42> & tab, int & numbe
     tab[number] = player.symbol;
 }
 
-bool horizontal_win(std::array<char,42> const & tab, char symbol){
+bool horizontal_win_detection(std::array<char,42> const & tab, char symbol){
     for (int i {0}; i < 6 ; i++){
         if(tab[0 + i*7] == symbol && tab[0 + i*7] == tab[1 + i*7] && tab [0 + i*7] == tab[2 + i*7] && tab[0 + i*7] == tab[3 + i*7]){
             return true;
@@ -57,7 +57,7 @@ bool horizontal_win(std::array<char,42> const & tab, char symbol){
     return false;
 }
 
-bool vertical_win(std::array<char,42> const & tab, char symbol){
+bool vertical_win_detection(std::array<char,42> const & tab, char symbol){
     for (int i {0}; i < 7; i++){
         if (tab[0 + i] == symbol && tab[0 + i] == tab[7 + i] && tab[0 + i] == tab[14 + i] && tab[0 + i] == tab[21 + i]){
             return true;
@@ -70,7 +70,7 @@ bool vertical_win(std::array<char,42> const & tab, char symbol){
     return false;
 }
 
-bool diagonale_win(std::array<char,42> const & tab, char symbol){
+bool diagonale_win_detection(std::array<char,42> const & tab, char symbol){
     if (tab[38] == symbol && tab[38] == tab[32] && tab[38] == tab[26] && tab[38] == tab[20]){
         return true;
     } else if (tab[38] == symbol && tab[38] == tab[30] && tab[38] == tab[22] && tab[38] == tab[14]){
@@ -125,7 +125,7 @@ bool diagonale_win(std::array<char,42> const & tab, char symbol){
 }
 
 bool victory_detection(std::array<char,42> const & tab, char symbol){
-    return (horizontal_win(tab,symbol) || vertical_win(tab,symbol) || diagonale_win(tab,symbol));
+    return (horizontal_win_detection(tab,symbol) || vertical_win_detection(tab,symbol) || diagonale_win_detection(tab,symbol));
 }
 
 void victory_declaration(std::array<char,42> const & tab, Player const & player_1, Player const & player_2){
